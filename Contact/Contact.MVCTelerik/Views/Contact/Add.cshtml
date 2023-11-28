@@ -1,0 +1,34 @@
+@using Contact.Application.Models.Response;
+@using Contact.MVCTelerik.Models;
+@model ContactViewModel;
+<div class="">
+    <div class="container mt-5">
+        <h1>Enter Your Details</h1>
+        @if (Model != null)
+        {
+            <div class="alert alert-danger" role="alert">Contact with this email address already exists</div>
+        }
+
+        @(Html.Kendo().Form<ContactViewModel>()
+            .Name("testKendoForm")
+            .HtmlAttributes(new { action = @Url.Action("Add", "Contact"), method = "POST" })
+            .Items(items =>
+            {
+                items.Add()
+                .Field(f => f.CreateRequest.Name)
+                .Label(l => l.Text("Name:"));
+                items.Add()
+                .Field(f => f.CreateRequest.Surname)
+                .Label(l => l.Text("Surname:"));
+                items.Add()
+                .Field(f => f.CreateRequest.Email)
+                .Label(l => l.Text("Email:"));
+                items.Add()
+                .Field(f => f.CreateRequest.Phone)
+                .Label(l => l.Text("Phone:").Optional(true));
+                items.Add()
+                .Field(f => f.CreateRequest.Address)
+                .Label(l => l.Text("Address:").Optional(true));
+            }))
+    </div>
+</div>

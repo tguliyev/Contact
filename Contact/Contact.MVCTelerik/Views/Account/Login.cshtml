@@ -1,0 +1,31 @@
+﻿<div class="container">
+    <div class="row justify-content-center mt-5">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="text-center">Login Form</h3>
+                </div>
+                <div class="card-body">
+                    @if (Model != null)
+                    {
+                        <div class="alert alert-danger" role="alert">Wrong credentials</div>
+                    }
+
+                    @(Html.Kendo().Form<Contact.Application.Models.Response.LoginRequest>()
+                        .Name("loginForm")
+                        .HtmlAttributes(new { action = @Url.Action("Login", "Account"), method = "POST" })
+                        .Items(items =>
+                        {
+                            items.Add()
+                            .Field(f => f.Email)
+                            .Label(l => l.Text("Email:"));
+                            items.Add()
+                            .Field(f => f.Password)
+                            .Label(l => l.Text("Password:"))
+                            .InputHtmlAttributes(new { type = "password" });
+                        }))
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

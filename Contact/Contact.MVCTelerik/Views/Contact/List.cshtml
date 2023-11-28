@@ -1,0 +1,62 @@
+﻿@using Contact.Application.Models.Response;
+@using Contact.MVCTelerik.Models;
+@model GetUserViewModel;
+
+<div class="container mt-4">
+    <h3>User Contact Table</h3>
+
+    @(Html.Kendo().Button()
+        .Name("addContactButton")
+        .ThemeColor(ThemeColor.Primary)
+        .Content("Add Contact")
+        .Tag("a")
+        .HtmlAttributes(new { href = "/Contact/Add" }))
+
+    @(Html.Kendo().Form<GetUserViewModel>()
+        .Name("testKendoForm")
+        .Layout("grid")
+        .Grid(g => g.Cols(4).Gutter(20))
+        .HtmlAttributes(new { action = @Url.Action("List", "Contact"), method = "GET" })
+        .Items(items =>
+        {
+            items.Add()
+            .Field(f => f.Request.Name)
+            .Label(l => l.Text("Name:"));
+            items.Add()
+            .Field(f => f.Request.Surname)
+            .Label(l => l.Text("Surname:"));
+            items.Add()
+            .Field(f => f.Request.Email)
+            .Label(l => l.Text("Email:"));
+            items.Add()
+            .Field(f => f.Request.Phone)
+            .Label(l => l.Text("Phone:"));
+        }))
+
+    @(
+        Html.Kendo().Grid<Contact.Domain.DTOs.UserContactDto>(Model.Response.Contacts)
+            .Name("userContactGrid")
+            .Columns(columns =>
+            {
+                columns.Bound(c => c.ContactId);
+                columns.Bound(c => c.Name);
+                columns.Bound(c => c.Surname);
+                columns.Bound(c => c.Email);
+                columns.Bound(c => c.Phone);
+                columns.Bound(c => c.Address);
+                columns.Command(c => c.Custom("Edit").Click("editContact"));
+                columns.Command(c => c.Custom("Deelete").Click("deleteContact"));
+            }))
+</div>
+
+<script type="text/javascript">
+    function editContact(e) {
+        let dataItem = this.dataItem($(e.currentTarget).closest("tr"));
+        window.location.href = '@Url.Action("Edit", "Contact")?contactId=' + dataItem.ContactId;
+    }
+
+    function deleteContact(e) {
+        let dataItem = this.dataItem($(e.currentTarget).closest("tr"));
+        window.location.href = '@Url.Action("Delete", "Contact")?contactId=' + dataItem.ContactId;
+    }
+</script>

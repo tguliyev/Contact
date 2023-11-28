@@ -1,0 +1,40 @@
+﻿<div class="container">
+    <div class="row justify-content-center mt-5">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="text-center">Registration Form</h3>
+                </div>
+                <div class="card-body">
+                    @if (Model != null)
+                    {
+                        <div class="alert alert-danger" role="alert">User with this email address already exists</div>
+                    }
+
+                    @(Html.Kendo().Form<Contact.Application.Models.Request.RegisterRequest>()
+                        .Name("registerForm")
+                        .HtmlAttributes(new { action = @Url.Action("Register", "Account"), method = "POST" })
+                        .Items(items =>
+                        {
+                            items.Add()
+                            .Field(f => f.Name)
+                            .Label(l => l.Text("Name:"));
+                            items.Add()
+                            .Field(f => f.Surname)
+                            .Label(l => l.Text("Surname:"));
+                            items.Add()
+                            .Field(f => f.Username)
+                            .Label(l => l.Text("Username:"));
+                            items.Add()
+                            .Field(f => f.Email)
+                            .Label(l => l.Text("Email:")); 
+                            items.Add()
+                            .Field(f => f.Password)
+                            .Label(l => l.Text("Password:"))
+                            .InputHtmlAttributes(new { type = "password" });
+                        }))
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
