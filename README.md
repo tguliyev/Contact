@@ -71,7 +71,7 @@ Contact MVC consume data from Contact.API . As Authorization Contact.MVC sends t
   
 ## Sharing Session
 
-API has JWT authentication. When User tries to login to the system , API response to user via cookie . I host jwt token in cookie with SameSiteMode NONE and same domain path with other projects (ASP.NET Core MVC).
+API has JWT authentication. When User tries to login to the system , API response to user via cookie .
 
 
 ## Error Codes
